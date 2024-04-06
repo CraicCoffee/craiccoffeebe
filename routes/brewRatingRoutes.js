@@ -3,6 +3,17 @@ const router = express.Router();
 const BrewRating = require('../models/brewRating'); // 引入你的 BrewRating 模型
 const Brew = require('../models/Brew');
 
+// GET route to retrieve all brew ratings
+router.get('/brew-ratings', async (req, res) => {
+  try {
+    // 只选择 '_id' 字段
+    const brewRatings = await BrewRating.find().select('brew _id');
+    res.status(200).json(brewRatings);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // POST route to create a new brew rating associated with a brew._id
 router.post('/brew-ratings', async (req, res) => {
   try {
@@ -58,11 +69,11 @@ router.get('/brew-ratings/:brewId', async (req, res) => {
   try {
     const {brewId} = req.params;
     const brewRating = await BrewRating.findOne({brew: brewId});
-
+    console.log(`BrewRating: ${brewRating}`)
     if (brewRating) {
       res.status(200).json(brewRating);
     } else {
-      res.status(404).json({message: 'BrewRating not found for the provided brew ID'});
+      res.status(200).json({});
     }
   } catch (error) {
     res.status(500).json({message: error.message});
