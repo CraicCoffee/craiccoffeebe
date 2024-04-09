@@ -76,10 +76,12 @@ const brewSchema = new mongoose.Schema({
     beforecolumn: Number,
     aftercolumn: Number,
     ls: Number,
-    brewingLog: brewingLogSchema
+    brewingLog: brewingLogSchema,
+    flavorProfile: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'FlavorProfile'
+    }
   }
 }, { timestamps: true });
 
-const Brew = mongoose.model('Brew', brewSchema);
-
-module.exports = Brew;
+module.exports = mongoose.models.Brew || mongoose.model('Brew', brewSchema);

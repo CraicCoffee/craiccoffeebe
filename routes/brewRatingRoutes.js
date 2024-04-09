@@ -31,12 +31,8 @@ router.post('/brew-ratings', async (req, res) => {
       richness
     } = req.body;
 
-    console.log(`Request body: ${JSON.stringify(req.body)}`); // 确保请求体被正确解析并打印
-    console.log(`Brew ID from request: ${brewId}`); // 现在应该能够正确打印出 brewId
-
     // 检查 brewId 是否对应于现有的 Brew
     const brewExists = await Brew.findById(brewId); // 确保 Brew 模型已经正确导入
-    console.log(`brewExists: ${brewExists}`);
 
     if (!brewExists) {
       return res.status(404).json({message: 'Brew not found'});

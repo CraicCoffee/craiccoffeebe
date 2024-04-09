@@ -10,6 +10,9 @@ const cors = require('cors');
 const brewRoutes = require('./routes/brewRoutes');
 const brewRatingRoutes = require('./routes/brewRatingRoutes');
 const userRoutes = require('./routes/userRoutes');
+const flavorProfileRoutes = require('./routes/flavorProfileRoutes'); // 确保路径正确
+const flavorDescriptorRouters = require('./routes/flavorDescriptorRouters'); // 确保路径正确
+
 
 const app = express();
 
@@ -20,6 +23,8 @@ app.use(bodyParser.json());
 app.use('/api', brewRoutes);
 app.use('/api', brewRatingRoutes);
 app.use('/api', userRoutes);
+app.use('/api/flavor-profiles', flavorProfileRoutes);
+app.use('/api/flavor-descriptor', flavorDescriptorRouters);
 
 // 连接到 MongoDB，使用环境变量
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
